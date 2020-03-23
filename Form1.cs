@@ -12,6 +12,7 @@ namespace WalkingMan1._0
         }
         int dist = 1;
         int spd = 5;
+        int spd1 = 0;
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Left)
@@ -35,6 +36,16 @@ namespace WalkingMan1._0
                 action.Stop();
                 Man.Image = Properties.Resources._1;
             }
+            if (e.KeyCode == Keys.Up)
+            {
+                spd1 = 5;
+                
+            }
+            if (e.KeyCode==Keys.Down)
+            {
+                spd1 = -5;
+            }
+
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
@@ -46,6 +57,7 @@ namespace WalkingMan1._0
         {
             dist++;
             Man.Left += spd;
+            Man.Top -= spd1;
             if (dist == 1)
             {
                 Man.Image = Properties.Resources._1;
@@ -76,9 +88,46 @@ namespace WalkingMan1._0
             }
             if (spd < 0)
             {
+                if (spd1>0)
+                {
+                    Man.Image.RotateFlip(RotateFlipType.Rotate270FlipX);
 
+                }
+                else if (spd1<0)
+                {
+                    Man.Image.RotateFlip(RotateFlipType.Rotate180FlipX);
+                    Man.Image.RotateFlip(RotateFlipType.Rotate270FlipY);
+                }
+                else
+                {
+                    Man.Image.RotateFlip(RotateFlipType.Rotate180FlipY);
+                }
+                
+            }
+            if (spd1>0 && spd>0)
+            {
+                Man.Image.RotateFlip(RotateFlipType.Rotate270FlipX);
                 Man.Image.RotateFlip(RotateFlipType.Rotate180FlipY);
             }
+            if (spd1 > 0 && spd > 0)
+            {
+                Man.Image.RotateFlip(RotateFlipType.Rotate270FlipX);
+                Man.Image.RotateFlip(RotateFlipType.Rotate90FlipY);
+            }
+            if (spd > 0 && spd1 < 0)
+            {
+                Man.Image.RotateFlip(RotateFlipType.Rotate180FlipX);
+                Man.Image.RotateFlip(RotateFlipType.Rotate270FlipY);
+            }
+            if (Man.Top>ClientSize.Height)
+            {
+                Man.Top = 8;
+            }
+            if (Man.Top < 0)
+            {
+                Man.Top = ClientSize.Height+5;
+            }
+
         }
     }
 }
